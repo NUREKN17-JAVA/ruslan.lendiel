@@ -1,0 +1,28 @@
+<project name="usermanagement" basedir="." default="compile">
+	
+	<property name="build-dir" value="${basedir}/target"/>
+	<property name="main-java-dir" value="${basedir}/src/main/java"/>
+	<property name="test-java-dir" value="${basedir}/src/test/java"/>
+	
+	<target name="clean">
+        <delete dir="${build-dir}"/>
+    </target>
+	
+	<target name="init" depends="clean">
+        <mkdir dir="${build-dir}"/>
+    </target> 
+	
+	<target name="compile" depends="init">
+		<javac srcdir="${main-java-dir}" destdir="${build-dir}"></javac>
+	</target>
+	
+	<target name="test-compile" depends="compile">
+        <javac srcdir="${test-java-dir}" destdir="${classes-dir}"/>
+    </target>
+    
+    <target name="test" depends="test-compile">
+        <junit>
+        	<test name="ua.nure.cs.lendiel.usermanagement.UserTest"></test>
+        </junit>        
+    </target>
+</project>
