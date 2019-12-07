@@ -2,4 +2,56 @@ Testsuite: com.annalohvinenko.usermanagement.UserTest
 Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,03 sec
 
 Testcase: testGetFullName took 0,006 sec
-	
+	FAILED
+expected:<[Annettie Lohvinenko]> but was:<[Lohvinenko, Annettie]>
+junit.framework.ComparisonFailure: expected:<[Annettie Lohvinenko]> but was:<[Lohvinenko, Annettie]>
+	at com.annalohvinenko.usermanagement.UserTest.testGetFullName(Unknown Source)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:460)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:142)
+
+Testcase: testGetAge1 took 0 sec
+	FAILED
+expected:<19> but was:<20>
+junit.framework.AssertionFailedError: expected:<19> but was:<20>
+	at com.annalohvinenko.usermanagement.UserTest.testGetAge1(Unknown Source)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:460)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:142)
+
+Testcase: testGetAge2 took 0,001 sec
+	FAILED
+expected:<20> but was:<19>
+junit.framework.AssertionFailedError: expected:<20> but was:<19>
+	at com.annalohvinenko.usermanagement.UserTest.testGetAge2(Unknown Source)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:460)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:142)
+
+Testcase: testGetAge3 took 0,001 sec
+	FAILED
+expected:<19> but was:<20>
+junit.framework.AssertionFailedError: expected:<19> but was:<20>
+	at com.annalohvinenko.usermanagement.UserTest.testGetAge3(Unknown Source)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:460)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:142)
+
+Testcase: testGetAge4 took 0,001 sec
+	FAILED
+expected:<20> but was:<19>
+junit.framework.AssertionFailedError: expected:<20> but was:<19>
+	at com.annalohvinenko.usermanagement.UserTest.testGetAge4(Unknown Source)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:460)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:142)
+
+Testcase: testGetAge5 took 0 sec
+	FAILED
+expected:<20> but was:<19>
+junit.framework.AssertionFailedError: expected:<20> but was:<19>
+	at com.annalohvinenko.usermanagement.UserTest.testGetAge5(Unknown Source)
+	at org.eclipse.ant.internal.launching.remote.EclipseDefaultExecutor.executeTargets(EclipseDefaultExecutor.java:36)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.run(InternalAntRunner.java:460)
+	at org.eclipse.ant.internal.launching.remote.InternalAntRunner.main(InternalAntRunner.java:142)
+
