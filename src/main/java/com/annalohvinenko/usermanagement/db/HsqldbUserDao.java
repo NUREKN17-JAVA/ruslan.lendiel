@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 import com.annalohvinenko.usermanagement.User;
 
- class HsqldbUserDao implements UserDao {
+ abstract class HsqldbUserDao implements UserDao {
 	 private ConnectionFactory connectionFactory;
 
 	    private static final String INSERT_QUERU = "INSERT into users (firstname, lastname, dateOfBirth) values (?, ?, ?)";

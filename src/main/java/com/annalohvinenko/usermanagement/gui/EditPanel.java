@@ -1,18 +1,14 @@
 package com.annalohvinenko.usermanagement.gui;
 
-import com.annalohvinenko.usermanagement.util.Messages;
-import com.annalohvinenko.usermanagement.User;
-import com.annalohvinenko.usermanagement.db.DatabaseException;
-import com.annalohvinenko.usermanagement.gui.MainFrame;
-
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
+
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -21,15 +17,21 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
+import com.annalohvinenko.usermanagement.User;
+import com.annalohvinenko.usermanagement.db.DatabaseException;
+import com.annalohvinenko.usermanagement.util.Messages;
 
-public class AddPanel extends JPanel implements ActionListener {
+
+public class EditPanel extends JPanel implements ActionListener {
     
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 2371425014873030612L;
-	
-	protected MainFrame parent;
+	private static final long serialVersionUID = -6163496162522793461L;
+    
+    private User user;
+
+    protected MainFrame parent;
 	protected JPanel buttonPanel;
 	protected JPanel fieldPanel;
 	protected JButton cancelButton;
@@ -39,29 +41,19 @@ public class AddPanel extends JPanel implements ActionListener {
     protected JTextField lastNameField;
     protected Color bgColor;
 
-    public AddPanel(MainFrame parent) {
+    public EditPanel(MainFrame parent) {
         this.parent = parent;
-        initialize();
+        initialize(); 
     }
 
     protected void initialize() {
-        this.setName("addPanel"); //$NON-NLS-1$
+        this.setName("editPanel"); //$NON-NLS-1$
         this.setLayout(new BorderLayout());
         this.add(getFieldPanel(), BorderLayout.NORTH);
-        this.add(getButtonPanel(), BorderLayout.SOUTH); 
+        this.add(getButtonPanel(), BorderLayout.SOUTH);
+        
     }
-	
-	 protected JPanel getFieldPanel() {
-        if (fieldPanel == null) {
-            fieldPanel = new JPanel();
-            fieldPanel.setLayout(new GridLayout(3, 2));
-            addLabeledField(fieldPanel, Messages.getString("AddPanel.first_name"), getFirstNameField()); //$NON-NLS-1$
-            addLabeledField(fieldPanel, Messages.getString("AddPanel.last_name"), getLastNameField()); //$NON-NLS-1$
-            addLabeledField(fieldPanel, Messages.getString("AddPanel.date_of_birth"), getDateOfBirthField()); //$NON-NLS-1$
-        }
-        return fieldPanel;
-    }
-	
+    
     protected JPanel getButtonPanel() {
         if (buttonPanel == null) {
             buttonPanel = new JPanel();
@@ -93,7 +85,16 @@ public class AddPanel extends JPanel implements ActionListener {
         return okButton;
     }
 
-   
+    protected JPanel getFieldPanel() {
+        if (fieldPanel == null) {
+            fieldPanel = new JPanel();
+            fieldPanel.setLayout(new GridLayout(3, 2));
+            addLabeledField(fieldPanel, Messages.getString("AddPanel.first_name"), getFirstNameField()); //$NON-NLS-1$
+            addLabeledField(fieldPanel, Messages.getString("AddPanel.last_name"), getLastNameField()); //$NON-NLS-1$
+            addLabeledField(fieldPanel, Messages.getString("AddPanel.date_of_birth"), getDateOfBirthField()); //$NON-NLS-1$
+        }
+        return fieldPanel;
+    }
 
     protected JTextField getDateOfBirthField() {
         if (dateOfBirthField == null) {
@@ -128,7 +129,6 @@ public class AddPanel extends JPanel implements ActionListener {
 
     protected void doAction(ActionEvent e) throws ParseException {
         if ("ok".equalsIgnoreCase(e.getActionCommand())) {
-            User user = new User();
             user.setFirstName(getFirstNameField().getText());
             user.setLastName(getLastNameField().getText());
             DateFormat format = DateFormat.getDateInstance();
@@ -137,20 +137,24 @@ public class AddPanel extends JPanel implements ActionListener {
                 user.setDateOfBirth(date);
             } catch (ParseException e1) {
                 getDateOfBirthField().setBackground(Color.RED);
-                return;
+                throw e1;
             }
             try {
-                if(parent.getDao() == null)
-                    throw new Exception("parent.getDao() == null");
-
-                parent.getDao().create(user);
+                parent.getDao().update(user);
             } catch (DatabaseException e1) {
                 JOptionPane.showMessageDialog(this, e1.getMessage(), "Error",
                         JOptionPane.ERROR_MESSAGE);
-            } catch (Exception ee){
-                System.out.println(ee.getMessage());
             }
         }
+    }
+
+
+    public void setUser(User user) {
+        DateFormat format = DateFormat.getDateInstance();
+        this.user = user;
+        getFirstNameField().setText(user.getFirstName());
+        getLastNameField().setText(user.getLastName());
+        getDateOfBirthField().setText(format.format(user.getDateOfBirth()));
     }
     
     public void actionPerformed(ActionEvent e) {
@@ -174,5 +178,6 @@ public class AddPanel extends JPanel implements ActionListener {
 
         getDateOfBirthField().setText("");
         getDateOfBirthField().setBackground(bgColor);
-    }
+    }   
 }
+

@@ -1,9 +1,14 @@
 package com.annalohvinenko.usermanagement.gui;
 
+import com.annalohvinenko.usermanagement.util.Messages;
+import com.annalohvinenko.usermanagement.User;
+import com.annalohvinenko.usermanagement.db.DatabaseException;
+import com.annalohvinenko.usermanagement.gui.MainFrame;
+
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -11,8 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import com.annalohvinenko.usermanagement.util.Messages;
-import com.annalohvinenko.usermanagement.gui.MainFrame;
 
 
 public class BrowsePanel extends JPanel implements ActionListener {
@@ -109,12 +112,24 @@ public class BrowsePanel extends JPanel implements ActionListener {
         return userTable;
     }
 
-	@Override
-	   public void actionPerformed(ActionEvent e) {
+    public void initTable() {
+        UserTableModel model;
+        try {
+            model = new UserTableModel(parent.getDao().findAll());
+        } catch (DatabaseException e) {
+            model = new UserTableModel(new ArrayList<User>());
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+
+        }
+        getUserTable().setModel(model);
+    }
+
+    public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
         if ("add".equalsIgnoreCase(actionCommand)) { //$NON-NLS-1$
             this.setVisible(false);
-           // parent.showAddPanel();
+            parent.showAddPanel();
         } else if ("edit".equalsIgnoreCase(actionCommand)) { //$NON-NLS-1$
             int selectedRow = userTable.getSelectedRow();
             if (selectedRow == -1) {
@@ -122,10 +137,10 @@ public class BrowsePanel extends JPanel implements ActionListener {
                         "Edit user", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-        //    User user = ((UserTableModel) userTable.getModel())
-       //             .getUser(selectedRow);
+            User user = ((UserTableModel) userTable.getModel())
+                    .getUser(selectedRow);
             this.setVisible(false);
-       //     parent.showEditPanel(user);
+            parent.showEditPanel(user);
         } else if ("delete".equalsIgnoreCase(actionCommand)) { //$NON-NLS-1$
             int selectedRow = userTable.getSelectedRow();
             if (selectedRow == -1) {
@@ -133,15 +148,15 @@ public class BrowsePanel extends JPanel implements ActionListener {
                         "Edit user", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-        //    try {
-        //        parent.getDao().delete(
-        //                ((UserTableModel) userTable.getModel())
-        //                       .getUser(selectedRow));
-        //    } catch (DatabaseException e1) {
-        //        JOptionPane.showMessageDialog(this, e1.getMessage(), "Error",
-        //                JOptionPane.ERROR_MESSAGE);
-       //     }
-        //    initTable();
+            try {
+                parent.getDao().delete(
+                        ((UserTableModel) userTable.getModel())
+                                .getUser(selectedRow));
+            } catch (DatabaseException e1) {
+                JOptionPane.showMessageDialog(this, e1.getMessage(), "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+            initTable();
             return;
         } else if("details".equalsIgnoreCase(actionCommand)){
             int selectedRow = userTable.getSelectedRow();
@@ -150,11 +165,12 @@ public class BrowsePanel extends JPanel implements ActionListener {
                         "Details user", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
-          //  User user = ((UserTableModel) userTable.getModel())
-          //          .getUser(selectedRow);
+            User user = ((UserTableModel) userTable.getModel())
+                    .getUser(selectedRow);
             this.setVisible(false);
-          //  parent.showDetailsPanel(user);
+            parent.showDetailsPanel(user);
         }
 
     }
+
 }

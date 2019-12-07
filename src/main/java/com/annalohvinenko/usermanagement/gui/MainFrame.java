@@ -8,10 +8,12 @@ import javax.swing.JPanel;
 import com.annalohvinenko.usermanagement.db.DaoFactory;
 import com.annalohvinenko.usermanagement.db.UserDao;
 import com.annalohvinenko.usermanagement.gui.BrowsePanel;
-import  com.annalohvinenko.usermanagement.gui.AddPanel;
-import  com.annalohvinenko.usermanagement.gui.MainFrame;
+import com.annalohvinenko.usermanagement.gui.AddPanel;
+import com.annalohvinenko.usermanagement.gui.MainFrame;
 import com.annalohvinenko.usermanagement.util.Messages;
-
+import com.annalohvinenko.usermanagement.User;
+import com.annalohvinenko.usermanagement.gui.DetailsPanel;
+import com.annalohvinenko.usermanagement.gui.EditPanel;
 
 public class MainFrame extends JFrame {
     
@@ -22,9 +24,9 @@ public class MainFrame extends JFrame {
     private JPanel contentPanel;
     private JPanel browsePanel;
     private AddPanel addPanel;
-
+    private DetailsPanel detailsPanel;
     private UserDao dao;
-
+    private EditPanel editPanel;
 
     public MainFrame() {
         super();
@@ -52,7 +54,7 @@ public class MainFrame extends JFrame {
         if (browsePanel == null) {
             browsePanel = new BrowsePanel(this);
         }
-       
+        ((BrowsePanel) browsePanel).initTable();
         return browsePanel;
     }
     
@@ -74,17 +76,49 @@ public class MainFrame extends JFrame {
         
     }
 
-    private JPanel getAddPanel() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private void showPanel(JPanel panel) {
+    private void showPanel(JPanel panel) {
         getContentPane().add(panel, BorderLayout.CENTER);
         panel.setVisible(true);
         panel.repaint();
         
     }
 
+    private AddPanel getAddPanel() {
+        if (addPanel == null) {
+            addPanel = new AddPanel(this);
+        }
+        return addPanel;
+    }
 
+    public void showBrowsePanel() {
+        showPanel(getBrowsePanel());
+        
+    }
+
+
+    public void showEditPanel(User user) {
+
+        getEditPanel().setUser(user);
+        showPanel(getEditPanel());
+    }
+
+
+    private EditPanel getEditPanel() {
+        if (editPanel == null) {
+            editPanel = new EditPanel(this);
+        }
+        return editPanel;
+    }
+
+    public void showDetailsPanel(User user) {
+        getDetailsPanel().setUser(user);
+        showPanel(getDetailsPanel());
+    }
+
+    private DetailsPanel getDetailsPanel() {
+        if (detailsPanel == null) {
+            detailsPanel = new DetailsPanel(this);
+        }
+        return detailsPanel;
+    }
 }

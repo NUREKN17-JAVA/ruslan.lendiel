@@ -3,6 +3,7 @@ package com.annalohvinenko.usermanagement.gui;
 import com.annalohvinenko.usermanagement.User;
 import com.annalohvinenko.usermanagement.db.DaoFactory;
 import com.annalohvinenko.usermanagement.gui.MainFrame;
+//import com.annalohvinenko.usermanagement.db.MockDaoFactory;
 import com.mockobjects.dynamic.Mock;
 import junit.extensions.jfcunit.JFCTestCase;
 import junit.extensions.jfcunit.JFCTestHelper;
@@ -68,8 +69,17 @@ public class MainFrameTest extends JFCTestCase {
         super.setUp();
         try {
             Properties properties = new Properties();
+
+        //    properties.setProperty("dao.Factory", MockDaoFactory.class.getName());
             DaoFactory.init(properties);
+        //    mockUserDao =((MockDaoFactory) DaoFactory.getInstance()).getMockUserDao();
+
+        //    User expectedUser = new User(EXPECTED_USER_ID,EXPECTED_USER_FIRST_NAME,EXPECTED_USER_LAST_NAME,DATE_OF_BIRTH);
+
             users = new ArrayList<User>();
+        //    users.add(expectedUser);
+
+            mockUserDao.expectAndReturn(MOCK_FIND_ALL_COMMAND, users);
             setHelper(new JFCTestHelper());
             mainFrame = new MainFrame();
         }catch(Exception e) {
