@@ -11,6 +11,7 @@ import com.annalohvinenko.usermanagement.gui.BrowsePanel;
 import  com.annalohvinenko.usermanagement.gui.AddPanel;
 import  com.annalohvinenko.usermanagement.gui.MainFrame;
 
+
 public class MainFrame extends JFrame {
 	
 	private static final long serialVersionUID = 2668816163406000368L;
@@ -19,7 +20,10 @@ public class MainFrame extends JFrame {
     private static final int FRAME_WIDTH = 800;
     private JPanel contentPanel;
     private JPanel browsePanel;
+    private AddPanel addPanel;
+
     private UserDao dao;
+
 
 	
 	 public MainFrame() {
@@ -63,10 +67,12 @@ public class MainFrame extends JFrame {
 	        
 	    }
 
-	    private JPanel getAddPanel() {
-			// TODO Auto-generated method stub
-			return null;
-		}
+	    private AddPanel getAddPanel() {
+	        if (addPanel == null) {
+	            addPanel = new AddPanel(this);
+	        }
+	        return addPanel;
+	    }
 
 		private void showPanel(JPanel panel) {
 	        getContentPane().add(panel, BorderLayout.CENTER);
