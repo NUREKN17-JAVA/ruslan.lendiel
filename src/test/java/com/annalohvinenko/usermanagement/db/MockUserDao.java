@@ -49,4 +49,10 @@ public class MockUserDao implements UserDao {
 		return null;
 	}
 
+	@Override
+	public Collection<User> find(String firstName, String lastName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

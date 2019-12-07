@@ -1,9 +1,7 @@
 package com.annalohvinenko.usermanagement.db;
 
-import java.util.Collection;
-import java.util.Date;
-
 import org.dbunit.DatabaseTestCase;
+
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
@@ -11,11 +9,14 @@ import org.dbunit.dataset.xml.XmlDataSet;
 
 import com.annalohvinenko.usermanagement.User;
 
+import java.util.Collection;
+import java.util.Date;
+
 public class HsqldbUserDaoTest extends DatabaseTestCase {
 
     private static final long TEST_ID = 1001L;
-    private static final String FIRST_NAME = "Anna";
-    private static final String LAST_NAME = "Lohvinenko";
+    private static final String FIRST_NAME = "Marko";
+    private static final String LAST_NAME = "Pavlenko";
 
     private UserDao userDao;
     private ConnectionFactory connectionFactory;
@@ -38,7 +39,7 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
     public void setUp() throws Exception {
         super.setUp();
         connectionFactory = new ConnectionFactoryImpl();
-        userDao = new HsqldbUserDao(connectionFactory);
+        /**userDao = new HsqldbUserDao(connectionFactory);**/
     }
 
     public void tearDown() throws Exception {
