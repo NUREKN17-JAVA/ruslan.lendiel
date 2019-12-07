@@ -2,8 +2,6 @@ package com.annalohvinenko.usermanagement.gui;
 
 import com.annalohvinenko.usermanagement.User;
 import com.annalohvinenko.usermanagement.db.DaoFactory;
-
-
 import com.mockobjects.dynamic.Mock;
 import junit.extensions.jfcunit.JFCTestCase;
 import junit.extensions.jfcunit.JFCTestHelper;
@@ -14,6 +12,10 @@ import java.awt.Component;
 import java.util.ArrayList;
 
 import java.util.Properties;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTable;
 
 public class MainFrameTest extends JFCTestCase {
  
@@ -59,4 +61,13 @@ public class MainFrameTest extends JFCTestCase {
         assertNotNull("Could not find component '" + name + "'", component);
         return component;
     }//done
+    
+    public void testBrowseTablePanel() {
+        find(JPanel.class, "BROWSE_PANEL");
+        find(JButton.class, "ADD_BUTTON");
+        find(JButton.class, "EDIT_BUTTON");
+        find(JButton.class, "DETAILS_BUTTON");
+        find(JButton.class, "DELETE_BUTTON");
+        find(JTable.class, "USER_TABLE");
+    }
 }
