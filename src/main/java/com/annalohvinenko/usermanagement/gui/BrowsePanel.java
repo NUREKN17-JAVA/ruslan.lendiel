@@ -3,17 +3,13 @@ package com.annalohvinenko.usermanagement.gui;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
-import com.annalohvinenko.usermanagement.User;
-import com.annalohvinenko.usermanagement.db.DatabaseException;
-
 
 public class BrowsePanel extends JPanel implements ActionListener {
 
@@ -110,8 +106,51 @@ public class BrowsePanel extends JPanel implements ActionListener {
     }
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	   public void actionPerformed(ActionEvent e) {
+        String actionCommand = e.getActionCommand();
+        if ("add".equalsIgnoreCase(actionCommand)) { //$NON-NLS-1$
+            this.setVisible(false);
+           // parent.showAddPanel();
+        } else if ("edit".equalsIgnoreCase(actionCommand)) { //$NON-NLS-1$
+            int selectedRow = userTable.getSelectedRow();
+            if (selectedRow == -1) {
+                JOptionPane.showMessageDialog(this, "Select a user, please",
+                        "Edit user", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+        //    User user = ((UserTableModel) userTable.getModel())
+       //             .getUser(selectedRow);
+            this.setVisible(false);
+       //     parent.showEditPanel(user);
+        } else if ("delete".equalsIgnoreCase(actionCommand)) { //$NON-NLS-1$
+            int selectedRow = userTable.getSelectedRow();
+            if (selectedRow == -1) {
+                JOptionPane.showMessageDialog(this, "Select a user, please",
+                        "Edit user", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+        //    try {
+        //        parent.getDao().delete(
+        //                ((UserTableModel) userTable.getModel())
+        //                       .getUser(selectedRow));
+        //    } catch (DatabaseException e1) {
+        //        JOptionPane.showMessageDialog(this, e1.getMessage(), "Error",
+        //                JOptionPane.ERROR_MESSAGE);
+       //     }
+        //    initTable();
+            return;
+        } else if("details".equalsIgnoreCase(actionCommand)){
+            int selectedRow = userTable.getSelectedRow();
+            if (selectedRow == -1) {
+                JOptionPane.showMessageDialog(this, "Select a user, please",
+                        "Details user", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+          //  User user = ((UserTableModel) userTable.getModel())
+          //          .getUser(selectedRow);
+            this.setVisible(false);
+          //  parent.showDetailsPanel(user);
+        }
+
+    }
 }

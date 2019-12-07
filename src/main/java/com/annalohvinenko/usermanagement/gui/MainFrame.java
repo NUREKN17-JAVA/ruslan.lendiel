@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import com.annalohvinenko.usermanagement.db.DaoFactory;
 import com.annalohvinenko.usermanagement.db.UserDao;
 import com.annalohvinenko.usermanagement.gui.BrowsePanel;
+import  com.annalohvinenko.usermanagement.gui.AddPanel;
+import  com.annalohvinenko.usermanagement.gui.MainFrame;
 
 public class MainFrame extends JFrame {
 	
@@ -50,9 +52,27 @@ public class MainFrame extends JFrame {
 	    }
 	    
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	    public static void main(String[] args) {
+	        MainFrame frame = new MainFrame();
+	        frame.setVisible(true);
 
-	}
+	    }
+
+	    public void showAddPanel() {
+	        showPanel(getAddPanel());
+	        
+	    }
+
+	    private JPanel getAddPanel() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		private void showPanel(JPanel panel) {
+	        getContentPane().add(panel, BorderLayout.CENTER);
+	        panel.setVisible(true);
+	        panel.repaint();
+	        
+	    }
 
 }
