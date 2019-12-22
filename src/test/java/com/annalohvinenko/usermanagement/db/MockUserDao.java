@@ -1,6 +1,5 @@
 package com.annalohvinenko.usermanagement.db;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,21 +37,9 @@ public class MockUserDao implements UserDao {
     public void setConnectionFactory(ConnectionFactory connectionFactory) {
     }
 
-    /*
+    @Override
     public Collection<User> find(String firstName, String lastName) {
         throw new UnsupportedOperationException("Sorry, no implementation for you");
     }
-	*/
-	@Override
-	public User find(long id) throws DatabaseException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Collection<User> find(String firstName, String lastName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }
