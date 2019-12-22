@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<!--
+We made the page for the user`s editing (edit.jsp)
+-->
 <html>
 <head>
     <title>User Management/Edit</title>
