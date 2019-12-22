@@ -22,13 +22,11 @@ public class SearchAgent extends Agent {
 
     private AID[] aids = new AID[0];
 
-  //  private SearchGui gui = null;
 
     @Override
     protected void setup() {
         super.setup();
-     //   gui = new SearchGui(this);
-     //   gui.setVisible(true);
+    
         addBehaviour(new TickerBehaviour(this, 60000) {
             @Override
             protected void onTick() {
@@ -50,7 +48,7 @@ public class SearchAgent extends Agent {
                 }
             }
         });
-   //     addBehaviour(new RequestServer());
+ 
         DFAgentDescription description = new DFAgentDescription();
         description.setName(getAID());
         ServiceDescription serviceDescription = new ServiceDescription();
