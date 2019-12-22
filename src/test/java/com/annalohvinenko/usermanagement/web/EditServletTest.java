@@ -1,5 +1,6 @@
 package com.annalohvinenko.usermanagement.web;
 
+
 import java.text.DateFormat;
 import java.util.Date;
 
@@ -24,5 +25,37 @@ public class EditServletTest extends MockServletTestCase {
         doPost();
     }
 
-    
+    public void testEditEmptyFirstName() {
+        User user = new User(new Long(1000), "John", "Doe", new Date());
+        addRequestParameter("id", user.getId().toString());
+        addRequestParameter("lastName", user.getLastName());
+        addRequestParameter("dateOfBirth", DateFormat.getDateInstance().format(user.getDateOfBirth()));
+        addRequestParameter("ok", "Ok");
+        doPost();
+        String errorMessage = (String) getWebMockObjectFactory().getMockRequest().getAttribute("error");
+        assertNotNull(errorMessage);
+    }
+
+    public void testEditEmptyLastName() {
+        User user = new User(new Long(1000), "John", "Doe", new Date());
+        addRequestParameter("id", user.getId().toString());
+        addRequestParameter("firstName", user.getFirstName());
+        addRequestParameter("dateOfBirth", DateFormat.getDateInstance().format(user.getDateOfBirth()));
+        addRequestParameter("ok", "Ok");
+        doPost();
+        String errorMessage = (String) getWebMockObjectFactory().getMockRequest().getAttribute("error");
+        assertNotNull(errorMessage);
+    }
+
+    public void testEditIncorrectDateOfBirth() {
+        User user = new User(new Long(1000), "John", "Doe", new Date());
+        addRequestParameter("id", user.getId().toString());
+        addRequestParameter("firstName", user.getFirstName());
+        addRequestParameter("lastName", user.getLastName());
+        addRequestParameter("dateOfBirth", "bla-bla-bla");
+        addRequestParameter("ok", "Ok");
+        doPost();
+        String errorMessage = (String) getWebMockObjectFactory().getMockRequest().getAttribute("error");
+        assertNotNull(errorMessage);
+    }
 }
