@@ -5,9 +5,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import com.annalohvinenko.usermanagement.web.BrowseServlet;
 import com.annalohvinenko.usermanagement.User;
-import com.annalohvinenko.usermanagement.web.MockServletTestCase;
 
 public class BrowseServletTest extends MockServletTestCase {
 
@@ -25,6 +23,38 @@ public class BrowseServletTest extends MockServletTestCase {
         assertNotNull("Could not find list of users in session", collection);
         assertSame(list, collection);
     }
-    
-    
+
+    public void testEdit() {
+        User expectedUser = new User(1000L, "John", "Doe", new Date());
+        getMockUserDao().expectAndReturn("find", 1000L, expectedUser);
+        addRequestParameter("edit", "Edit");
+        addRequestParameter("id", "1000");
+        doPost();
+        User returnedUser = (User) getWebMockObjectFactory().getMockSession().getAttribute("user");
+        assertNotNull(returnedUser);
+        assertSame(expectedUser, returnedUser);
+    }
+
+    public void testDelete() {
+        User user = new User(1000L, "John", "Doe", new Date());
+        getMockUserDao().expectAndReturn("find", 1000L, user);
+        addRequestParameter("id", String.valueOf(1000L));
+        addRequestParameter("delete", "Delete");
+        doPost();
+        User returnedUser = (User) getWebMockObjectFactory().getMockSession().getAttribute("user");
+        assertNotNull(returnedUser);
+        assertSame(user, returnedUser);
+    }
+
+    public void testDetails() {
+        User user = new User(1000L, "John", "Doe", new Date());
+        getMockUserDao().expectAndReturn("find", 1000L, user);
+        addRequestParameter("id", String.valueOf(1000L));
+        addRequestParameter("details", "Details");
+        doPost();
+        User returnedUser = (User) getWebMockObjectFactory().getMockSession().getAttribute("user");
+        assertNotNull(returnedUser);
+        assertSame(user, returnedUser);
+    }
 }
+
