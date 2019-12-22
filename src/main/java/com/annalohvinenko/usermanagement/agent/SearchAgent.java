@@ -9,28 +9,38 @@ import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
-//import com.annalohvinenko.usermanagement.agent.behaviour.SearchRequestBehaviour;
+import com.annalohvinenko.usermanagement.agent.behaviour.SearchRequestBehaviour;
 //import com.annalohvinenko.usermanagement.agent.exception.SearchException;
 //import com.annalohvinenko.usermanagement.gui.SearchGui;
 
-//import com.annalohvinenko.usermanagement.agent.behaviour.RequestServer;
+import com.annalohvinenko.usermanagement.agent.behaviour.RequestServer;
 import com.annalohvinenko.usermanagement.User;
-import com.annalohvinenko.usermanagement.agent.behaviour.SearchRequestBehaviour;
 import com.annalohvinenko.usermanagement.db.DaoFactory;
 import com.annalohvinenko.usermanagement.db.DatabaseException;
-//import com.annalohvinenko.usermanagement.agent.exception.SearchException;
 
 public class SearchAgent extends Agent {
 
-    private AID[] aids = new AID[0];
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
+	private AID[] aids = new AID[0];
+
+    private SearchGui gui = null;
 
     @Override
     protected void setup() {
         super.setup();
-    
+        gui = new SearchGui(this);
+        gui.setVisible(true);
         addBehaviour(new TickerBehaviour(this, 60000) {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             protected void onTick() {
                 DFAgentDescription description = new DFAgentDescription();
                 description.setName(getAID());
@@ -50,7 +60,7 @@ public class SearchAgent extends Agent {
                 }
             }
         });
- 
+        addBehaviour(new RequestServer());
         DFAgentDescription description = new DFAgentDescription();
         description.setName(getAID());
         ServiceDescription serviceDescription = new ServiceDescription();
@@ -73,11 +83,12 @@ public class SearchAgent extends Agent {
         } catch (FIPAException e) {
             e.printStackTrace();
         }
-       
+        gui.setVisible(false);
+        gui.dispose();
         System.out.println("Agent " + getAID().getName() + " has finished working!");
     }
 
-    public void search(String firstName, String lastName) throws Exception {
+    public void search(String firstName, String lastName) throws SearchException {
         try {
             Collection<User> users = DaoFactory.getInstance().getUserDao().find(firstName, lastName);
             if (users.size() > 0) {
@@ -86,10 +97,11 @@ public class SearchAgent extends Agent {
                 addBehaviour(new SearchRequestBehaviour(firstName, lastName, aids));
             }
         } catch (DatabaseException e) {
-            throw new Exception(e);
+            throw new SearchException(e);
         }
     }
+
     public void showUsers(Collection<User> users) {
- 
+        gui.addUsers(users);
     }
 }
