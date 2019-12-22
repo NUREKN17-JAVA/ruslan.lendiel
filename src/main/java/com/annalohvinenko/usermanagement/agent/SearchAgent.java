@@ -10,8 +10,8 @@ import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import com.annalohvinenko.usermanagement.agent.behaviour.SearchRequestBehaviour;
-//import com.annalohvinenko.usermanagement.agent.exception.SearchException;
-//import com.annalohvinenko.usermanagement.gui.SearchGui;
+import com.annalohvinenko.usermanagement.agent.exception.SearchException;
+import com.annalohvinenko.usermanagement.gui.SearchGui;
 
 import com.annalohvinenko.usermanagement.agent.behaviour.RequestServer;
 import com.annalohvinenko.usermanagement.User;
@@ -83,7 +83,7 @@ public class SearchAgent extends Agent {
         } catch (FIPAException e) {
             e.printStackTrace();
         }
-        //gui.setVisible(false);
+        gui.setVisible(false);
         gui.dispose();
         System.out.println("Agent " + getAID().getName() + " has finished working!");
     }
