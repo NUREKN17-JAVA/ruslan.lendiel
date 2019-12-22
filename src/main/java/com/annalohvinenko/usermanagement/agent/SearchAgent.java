@@ -15,8 +15,10 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 
 //import com.annalohvinenko.usermanagement.agent.behaviour.RequestServer;
 import com.annalohvinenko.usermanagement.User;
+import com.annalohvinenko.usermanagement.agent.behaviour.SearchRequestBehaviour;
 import com.annalohvinenko.usermanagement.db.DaoFactory;
 import com.annalohvinenko.usermanagement.db.DatabaseException;
+//import com.annalohvinenko.usermanagement.agent.exception.SearchException;
 
 public class SearchAgent extends Agent {
 
@@ -78,12 +80,15 @@ public class SearchAgent extends Agent {
     public void search(String firstName, String lastName) throws Exception {
         try {
             Collection<User> users = DaoFactory.getInstance().getUserDao().find(firstName, lastName);
-            
-        } catch (Exception e) {
-      
+            if (users.size() > 0) {
+                showUsers(users);
+            } else {
+                addBehaviour(new SearchRequestBehaviour(firstName, lastName, aids));
+            }
+        } catch (DatabaseException e) {
+            throw new Exception(e);
         }
     }
-
     public void showUsers(Collection<User> users) {
  
     }
