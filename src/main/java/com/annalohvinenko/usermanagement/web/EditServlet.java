@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.ValidationException;
 
-import com.markopavlenko.usermanagement.User;
-import com.markopavlenko.usermanagement.db.DaoFactory;
-import com.markopavlenko.usermanagement.db.DatabaseException;
+import com.annalohvinenko.usermanagement.User;
+import com.annalohvinenko.usermanagement.db.DaoFactory;
+import com.annalohvinenko.usermanagement.db.DatabaseException;
 
 public class EditServlet extends HttpServlet {
 
