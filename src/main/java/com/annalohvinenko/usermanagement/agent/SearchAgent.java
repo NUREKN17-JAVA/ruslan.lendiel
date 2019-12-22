@@ -83,7 +83,7 @@ public class SearchAgent extends Agent {
         } catch (FIPAException e) {
             e.printStackTrace();
         }
-        gui.setVisible(false);
+        //gui.setVisible(false);
         gui.dispose();
         System.out.println("Agent " + getAID().getName() + " has finished working!");
     }
